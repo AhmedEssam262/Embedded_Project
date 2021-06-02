@@ -8,33 +8,33 @@ void SystemInit () {}
 	 SYSCTL_RCGCUART_R |= 0X01 ;                   /* provide clock to UART0 */
 	 SYSCTL_RCGCGPIO_R |= 0x01;                    /* actviate port A */
 		while((SYSCTL_PRGPIO_R&0x01)==0){};          /*delay*/ 
-   SYSCTL_RCGCGPIO_R |= 0x20;                    /* actviate port F */
+         SYSCTL_RCGCGPIO_R |= 0x20;                    /* actviate port F */
 		while((SYSCTL_PRGPIO_R&0x20)==0){};          /*delay*/ 
 		
 			
 	 UART0_CTL_R = 0 ;                             /* disable UART */ 
-   UART0_IBRD_R = 27 ; 
+         UART0_IBRD_R = 27 ; 
 		/* IBRD = Bus clock / (16 * clock div) */ 
 	 UART0_FBRD_R = 11 ;
     /* FBDR = round (  * 64) + 0.5 =  */ 
-	 UART0_LCRH_R = 0x70;                          /* set 8 bits for length */
-   UART0_CTL_R = 0x301 ;                         /* enable UARTEN , TXE and RXE */
+         UART0_LCRH_R = 0x70;                          /* set 8 bits for length */
+         UART0_CTL_R = 0x301 ;                         /* enable UARTEN , TXE and RXE */
 
 
 
 /* UART0 TX0 and RX0 use PA0 and PA1*/ 
-   GPIO_PORTA_DEN_R = 0x03;                      /* Make PA0 and PA1 as digital */
-   GPIO_PORTA_AFSEL_R = 0x03 ;                   /* Use PA0,PA1 alternate function */
-	 GPIO_PORTA_PCTL_R =0x11;                      /* configure PA0 and PA1 for UART */
-	 GPIO_PORTA_AMSEL_R &=~0x03;                   /* no analog for PA0 , PA1 */  
+        GPIO_PORTA_DEN_R = 0x03;                      /* Make PA0 and PA1 as digital */
+        GPIO_PORTA_AFSEL_R = 0x03 ;                   /* Use PA0,PA1 alternate function */
+	 GPIO_PORTA_PCTL_R =0x11;                     /* configure PA0 and PA1 for UART */
+	 GPIO_PORTA_AMSEL_R &=~0x03;                  /* no analog for PA0 , PA1 */  
 		
 
 /* configure Port F to control the LEDs */
 	GPIO_PORTF_LOCK_R=0x4C4F434B;
 	GPIO_PORTF_CR_R = 0x1F; 
 	GPIO_PORTF_DIR_R = 0x0E; 
-  GPIO_PORTF_DEN_R = 0x0E;
-  GPIO_PORTF_DATA_R = 0;
+        GPIO_PORTF_DEN_R = 0x0E;
+        GPIO_PORTF_DATA_R = 0;
 	GPIO_PORTF_AMSEL_R = 0;
 	
 } 
@@ -49,10 +49,11 @@ int main (void)
 	while(1) {	
 	 x = UART0Rx() ;     		                          /* get a character from UART */
 	 GPIO_PORTF_DATA_R = x<<1 ;                       /* shift left and write it to LEDs */
-	 while((UART0_FR_R&0x10)!= 0){};	
-   x = UART0_DR_R ; 		 
+	/*/*/*-------------------------------------- while((UART0_FR_R&0x10)!= 0){}; ----------------------------------------- */ */ */	
+         x = UART0_DR_R ; 		 
 		return x; 
 	}
+	
 } 		
 		
 
