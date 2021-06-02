@@ -69,10 +69,6 @@ int main(){
 		GPIO_PORTF_DATA_R = 0x02;
 	}
 
-	else if( (GPIO_PORTF_DATA_R & 0x11)==0x00 ){
-		GPIO_PORTF_DATA_R = 0x08;
-	}
-
 	else {
 		GPIO_PORTF_DATA_R = 0x0E;
 	}
