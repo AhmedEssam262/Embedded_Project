@@ -91,8 +91,8 @@ int main(){
 	
 	// PORTA For Sellectors &  PORTB to Showin output
 	void LCD_init(void){
-SYSCTL_RCGCGPIO_R |= 0x01; //PORTA clock
-SYSCTL_RCGCGPIO_R |= 0x02;
+SYSCTL_RCGCGPIO_R |= 0x00; //PORTA clock
+SYSCTL_RCGCGPIO_R |= 0x01;
 GPIO_PORTA_DIR_R |=0xE0; //PORTA controls RS,E and R/W
 GPIO_PORTA_DEN_R |=0xE0;
 GPIO_PORTB_DIR_R |=0xFF; //PORTB D0-D7
