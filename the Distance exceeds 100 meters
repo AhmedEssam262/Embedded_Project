@@ -22,7 +22,7 @@ void led(uint32_t Distance)
 	init();
 	while(1)
 	{
-		// Distance in KM
+	// Distance in KM
 	if (Distance > 0.1)
 		{
 		GPIO_PORTF_DATA_R=BLUE;       // Turn on LED BLUE when the Distance exceeds 100 meters
