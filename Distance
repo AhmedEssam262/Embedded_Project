@@ -46,15 +46,18 @@ long double distance(long double lat1, long double long1,
 //  Code
 int main()
 {
+    // distance_between (29.97963198356166, 31.25893232521584, 29.978783633913597, 31.259306919058684)
     long double lat1 = 29.97963198356166;
     long double long1 = 31.25893232521584;
     long double lat2 = 29.978783633913597;
     long double long2 = 31.259306919058684;
 
-    // call the distance function
+    long double Distance =distance(lat1, long1,
+                                   lat2, long2);
 
-    cout << distance(lat1, long1,
-                     lat2, long2) << " K.M";
+    // Distance in KM
+
+    cout << Distance << " K.M";
 
     return 0;
 }
