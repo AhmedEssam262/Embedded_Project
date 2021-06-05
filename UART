@@ -2,35 +2,29 @@
 #include "C:/Keil/EE319Kware/inc/tm4c123gh6pm.h"
 void SystemInit () {}
 	
-	
+	/* Assume a 16 MHZ bus clock , creates 9600 baud rate */ 
 	void UART_Init(void)
 	{		
-	 SYSCTL_RCGCUART_R |= 0X01 ;                   /* provide clock to UART0 */
-	 SYSCTL_RCGCGPIO_R |= 0x01;                    /* actviate port A */
-		while((SYSCTL_PRGPIO_R&0x01)==0){};          /*delay*/ 
+	 SYSCTL_RCGCUART_R |= 0X20 ;                            /* provide clock to UART5 */
+	 SYSCTL_RCGCGPIO_R |= 0x10;                             /* actviate port E */
+		while((SYSCTL_PRGPIO_R&0x10)==0){};             /*delay*/ 
 
 		
-			
-	 UART0_CTL_R = 0 ;                             /* disable UART */ 
-	 
-	/* baud rate = 9600 , bus clock = 16 MHZ */ 
-         UART0_IBRD_R = 104 ; 
-		/* IBRD = Bus clock / (16 * clock div) */ 
-	 UART0_FBRD_R = 11 ;
-    /* FBDR = round ( 0.16667 * 64) + 0.5 =  */ 
-         UART0_LCRH_R = 0x70;                          /* set 8 bits for length */
-         UART0_CTL_R = 0x301 ;                         /* enable UARTEN , TXE and RXE */
+/* UART5 Setting */  
+	 UART5_CTL_R &= ~0x01 ;                              /* disable UART */   
+         UART5_IBRD_R = 104 ;                                /* IBRD = Bus clock / (16 * clock div) */ 
+	 UART5_FBRD_R = 11 ;                                 /* FBDR = round ( 0.16667 * 64)  =  */ 
+         UART5_LCRH_R = 0x70;                                /* set 8 bits for length , FIFO enable , one stop , no parity  */
+         UART5_CTL_R = 0x301 ;                               /* enable UARTEN , TXE and RXE */
 
 
 
-/* UART0 TX0 and RX0 use PA0 and PA1*/ 
-        GPIO_PORTA_DEN_R = 0x03;                      /* Make PA0 and PA1 as digital */
-        GPIO_PORTA_AFSEL_R = 0x03 ;                   /* Use PA0,PA1 alternate function */
-	 GPIO_PORTA_PCTL_R =0x11;                     /* configure PA0 and PA1 for UART */
-	 GPIO_PORTA_AMSEL_R &=~0x03;                  /* no analog for PA0 , PA1 */  
+/* UART0 TX0 and RX0 use PE5 and PE4*/ 
+        GPIO_PORTE_DEN_R |= 0x30;                                                           /* Make PE4 and PE5 as digital */
+        GPIO_PORTE_AFSEL_R |= 0x30 ;                                                        /* Use PE4,PE5 alternate function */
+	GPIO_PORTE_PCTL_R =(GPIO_PORTE_PCTL_R & 0xFF00FFFF)+0x00110000 ;                    /* configure PE4 and PE5 for UART */
+	GPIO_PORTE_AMSEL_R &= ~0x30;                                                        /* no analog for PE4 , PE5 */  
 		
-
-	
 } 
 
 
@@ -38,12 +32,12 @@ void SystemInit () {}
 int main (void)
 	{
 	 UART_Init();
-	 char UART0Rx(void); 
+	 char UART5Rx(void); 
 	 char c;
 	 while(1)
 	 {
-	 c = UART0Rx();                               /* get a character from UART */
-	 while((UART0_FR_R&0x10)!= 0){};              /* wait until the buffer is not empty */
+	 c = UART5Rx();                               /* get a character from UART */
+	 while((UART5_FR_R&0x10)!= 0){};              /* wait until the buffer is not empty */
 	  c = UART0_DR_R ;                            /* read the received data */
 	  return x;                                   /* and return it */
 	 
