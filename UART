@@ -12,10 +12,12 @@ void SystemInit () {}
 		
 			
 	 UART0_CTL_R = 0 ;                             /* disable UART */ 
-         UART0_IBRD_R = 27 ; 
+	 
+	/* baud rate = 9600 , bus clock = 16 MHZ */ 
+         UART0_IBRD_R = 104 ; 
 		/* IBRD = Bus clock / (16 * clock div) */ 
 	 UART0_FBRD_R = 11 ;
-    /* FBDR = round (  * 64) + 0.5 =  */ 
+    /* FBDR = round ( 0.16667 * 64) + 0.5 =  */ 
          UART0_LCRH_R = 0x70;                          /* set 8 bits for length */
          UART0_CTL_R = 0x301 ;                         /* enable UARTEN , TXE and RXE */
 
@@ -35,16 +37,18 @@ void SystemInit () {}
 
 int main (void)
 	{
-		UART_Init();
-	  char UART0Rx(void);
-	  char x;	
-	while(1) {	
-	 x = UART0Rx() ;     		                          /* get a character from UART */
-	 GPIO_PORTF_DATA_R = x<<1 ;                       /* shift left and write it to LEDs */
-	/*/*/*-------------------------------------- while((UART0_FR_R&0x10)!= 0){}; ----------------------------------------- */ */ */	
-         x = UART0_DR_R ; 		 
-		return x; 
-	}
+	 UART_Init();
+	 char UART0Rx(void); 
+	 char c;
+	 while(1)
+	 {
+	 c = UART0Rx();                               /* get a character from UART */
+	 while((UART0_FR_R&0x10)!= 0){};              /* wait until the buffer is not empty */
+	  c = UART0_DR_R ;                            /* read the received data */
+	  return x;                                   /* and return it */
+	 
+	 }
+	
 	
 } 		
 		
