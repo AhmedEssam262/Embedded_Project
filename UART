@@ -14,7 +14,7 @@ void UART_Init(void)
 /* UART5 Setting */  
 	 UART5_CTL_R &= ~0x0001 ;                              /* disable UART */   
          UART5_IBRD_R = 104 ;                                /* IBRD = Bus clock / (16 * clock div) */ 
-	 UART5_FBRD_R = 11 ;                                 /* FBDR = round ( 0.16667 * 64)  =  */ 
+	 UART5_FBRD_R = 11 ;                                 /* FBDR = round ( 0.16667 * 64)+0.5  =  */ 
          UART5_LCRH_R = 0x0070;                                /* set 8 bits for length , FIFO enable , one stop , no parity  */
          UART5_CTL_R = 0x0301 ;                               /* enable UARTEN , TXE and RXE */
 
