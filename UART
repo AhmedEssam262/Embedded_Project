@@ -2,8 +2,9 @@
 #include "C:/Keil/EE319Kware/inc/tm4c123gh6pm.h"
 void SystemInit () {}
 	
+	
 	/* Assume a 16 MHZ bus clock , creates 9600 baud rate */ 
-	void UART_Init(void)
+void UART_Init(void)
 	{		
 	 SYSCTL_RCGCUART_R |= 0X20 ;                            /* provide clock to UART5 */
 	 SYSCTL_RCGCGPIO_R |= 0x10;                             /* actviate port E */
@@ -29,21 +30,37 @@ void SystemInit () {}
 
 
 
+
+
+/* Wait for New Inputs then return ASCII Code */ 
+unsigned int UART_InChar(void)
+{
+while((UART5_FR_R&0x10) != 0){};      
+return ((unsigned int)(UART5_DR_R&0xFF));
+}
+
+
+
+
+
+
+/* Wait for buffer to be not full then output */
+void  UART_OutChar(unsigned int data)
+{
+while((UART5_FR_R&0x20)!= 0){};  
+UART5_DR_R = data ; 
+}
+
+
+
+
+
+
 int main (void)
 	{
 	 UART_Init();
-	 char UART5Rx(void); 
-	 char c;
-	 while(1)
-	 {
-	 c = UART5Rx();                               /* get a character from UART */
-	 while((UART5_FR_R&0x10)!= 0){};              /* wait until the buffer is not empty */
-	  c = UART0_DR_R ;                            /* read the received data */
-	  return x;                                   /* and return it */
-	 
-	 }
-	
-	
+         UART_InChar();
+	 UART_OutChar();
 } 		
 		
 
