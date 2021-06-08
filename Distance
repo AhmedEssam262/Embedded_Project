@@ -5,61 +5,82 @@
 
 using namespace std;
 
-// converting degrees to radians
+// converting to Decmial
+    //longitude
 
-long double toRadians(long double degree)
-{
-    long double radian = (degree *(M_PI)) / 180;
-    return (radian);
+int degrees;
+double longitude=0 ,latitude=0 ,minutes=0 ,seconds=0 ,result=0;
+char longitudeResult [10], latitudeResult[10];
+double longitudetoDecimal(double longitude){
+
+     degrees=longitude/100;
+     minutes=longitude-(double)(degrees*100);
+     seconds=minutes/60.00;
+     result=degrees+seconds;
+     sprintf(longitudeResult, "%f", result);
+     return ((double)atof(longitudeResult));
 }
-long double distance(long double lat1, long double long1,
-                     long double lat2, long double long2)
+
+    // latitude
+
+double latitudetoDecimal(double latitude){
+
+     Degrees=latitude/100;
+     minutes=latitude-(double)(degrees*100);
+     seconds=minutes/60.00;
+     result=degrees+seconds;
+     sprintf(latitudeResult, "%f", result);
+     return ((double)atof(latitudeResult));
+
+}
+
+// converting longitude degrees to radians
+
+double longitudetoRadians(double longitude)
+{
+
+    longitude = longitudetoDecimal(longitude);
+    double radian = (longitude *(M_PI)) / 180;
+    return (radian1);
+}
+
+// converting latitude degrees to radians
+
+double latitudetoRadians(double latitude)
+{
+
+    latitude=latitudetoDecimal(latitude);
+    double radian = (latitude *(M_PI)) / 180;
+    return (radian2);
+}
+double distance(double lat1, double long1,
+                double lat2, double long2)
 {
 
     // Convert the latitudes and longitudes from degree to radians
 
-    lat1 = toRadians(lat1);
-    long1 = toRadians(long1);
-    lat2 = toRadians(lat2);
-    long2 = toRadians(long2);
+    lat1  = latitudetoRadians(lat1);
+    long1 = longitudetoRadians(long1);
+    lat2  = latitudetoRadians(lat2);
+    long2 = longitudetoRadians(long2);
 
     // Haversine Formula
-     long double dlong = long2 - long1;
-     long double dlat = lat2 - lat1;
 
-     long double ans = pow(sin(dlat / 2), 2)
+     double dlong = long2 - long1;
+     double dlat = lat2 - lat1;
+
+     double ans = pow(sin(dlat / 2), 2)
                           + cos(lat1) * cos(lat2)
                           * pow(sin(dlong / 2), 2);
 
     ans = 2 * asin(sqrt(ans));
 
     // Radius of Earth in Kilometers, R = 6371
-    
-    long double R = 6371;
+
+    double R = 6371;
 
     // Calculate the result
     ans = ans * R;
 
-    return ans;
-}
-
-//  Code
-int main()
-{
-    // distance_between (29.97963198356166, 31.25893232521584, 29.978783633913597, 31.259306919058684)
-    long double lat1 = 29.97963198356166;
-    long double long1 = 31.25893232521584;
-    long double lat2 = 29.978783633913597;
-    long double long2 = 31.259306919058684;
-    
-    long double Total_Distance = 0;
-
-    long double Total_Distance += distance(lat1, long1,
-                                           lat2, long2);
-
-    // Total_Distance in KM
-
-    cout << Total_Distance << " K.M";
-
-    return 0;
+    double ans;
 }
