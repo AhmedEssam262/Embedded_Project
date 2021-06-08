@@ -233,12 +233,19 @@ double GPS_cordinates(double *lat_do, double *long_do)
     //longitude
 
 
-double longitudetoDecimal(double longitude){
+double longitudetoDecimal(double longitude ,char check){
 
      double minutes=0 ,seconds=0 ,result=0;
      char longitudeResult [10];
+     int degrees;
 
-     int degrees=longitude/100;
+     if (check == 'W'){
+        degrees=longitude/-100;
+     }
+     else {
+        degrees=longitude/100;
+     }
+     
      minutes=longitude-(double)(degrees*100);
      seconds=minutes/60.00;
      result=degrees+seconds;
@@ -248,12 +255,19 @@ double longitudetoDecimal(double longitude){
 
     // latitude
 
-double latitudetoDecimal(double latitude){
+double latitudetoDecimal(double latitude , char check){
 
      double minutes=0 ,seconds=0 ,result=0;
      char latitudeResult[10];
+     int degrees;
+    
+     if(check == "S"){
+        degrees=latitude/-100;
+     }
+     else {
+        degrees=latitude/100;
+     }
 
-     int degrees=latitude/100;
      minutes=latitude-(double)(degrees*100);
      seconds=minutes/60.00;
      result=degrees+seconds;
@@ -264,33 +278,34 @@ double latitudetoDecimal(double latitude){
 
 // converting longitude degrees to radians
 
-double longitudetoRadians(double longitude)
+double longitudetoRadians(double longitude ,char check)
 {
 
-    longitude = longitudetoDecimal(longitude);
+    longitude = longitudetoDecimal(longitude, check);
     double radian1 = (longitude *(M_PI)) / 180;
     return (radian1);
 }
 
 // converting latitude degrees to radians
 
-double latitudetoRadians(double latitude)
+double latitudetoRadians(double latitude ,char check)
 {
 
-    latitude=latitudetoDecimal(latitude);
+    latitude=latitudetoDecimal(latitude, check);
     double radian2 = (latitude *(M_PI)) / 180;
     return (radian2);
 }
-double distance(double lat1, double long1,
-                double lat2, double long2)
+
+double distance(double lat1,char check1, double long1 ,char check2,
+                double lat2,char check3, double long2 ,char check4 )
 {
 
     // Convert the latitudes and longitudes from degree to radians
 
-    lat1  = latitudetoRadians(lat1);
-    long1 = longitudetoRadians(long1);
-    lat2  = latitudetoRadians(lat2);
-    long2 = longitudetoRadians(long2);
+    lat1  = latitudetoRadians(lat1 ,check1);
+    long1 = longitudetoRadians(long1 ,check2);
+    lat2  = latitudetoRadians(lat2 ,check3);
+    long2 = longitudetoRadians(long2 ,check4);
 
     // Haversine Formula
 
