@@ -117,6 +117,29 @@ if(command <4) delay_milli(2); else delay_micro(37);
     delay_micro(0);
 
     }
+    //**************************************************************************
+    int separating_u(int final){
+       int num = final;
+       int u;
+       u=num%10;
+       return (u+48);
+   }
+    int separating_t(int final){
+       int num = final;
+       int t;
+       t=(num/10)%10;
+       return (t+48);
+   }
+
+
+    int separating_h(int final){
+    int num = final;
+    int h;
+    h=num/100;
+    return (h+48);
+}
+
+//********************************************************
 // For Delay
 
 void delay_milli(int n){
