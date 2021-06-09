@@ -133,7 +133,9 @@ UART5_DR_R = data ;
 double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
 {
     char frst_ch = '0', dumm_var = '0';   //initi.
-
+    *lat_do = 0.0;                        
+    *long_do = 0.0;
+    
      //variables we will need to store the latit. and long as a strings
     char lat[18] = "0", longt[10] = "0";
 
@@ -425,29 +427,32 @@ void delay_micro(int n){
       //loop to get start point
       bool point1_xy = true, break2 = true ;
       double lat1 = 0.0, long1 = 0.0;
+      char N_S1 = '0', E_W1 ='0';
 
       while (point1_xy == true)
       {
 
-         GPS_cordinates(&lat1, &long1);
+         GPS_cordinates(&lat1, &long1, &N_S1, &E_W1);
           if (lat1 != 0 && long1 != 0)
               point1_xy = false ;
 
       }
 
-      //loop 2 , Tiva will be running till push button
+      //loop 2 , Tiva will be running till push button is pressed
       double lat2 = 0.0, long2 = 0.0, distance_acc = 0.0;
+      char N_S2 = '0', E_W2 = '0';
       while (break2 == true)
       {
           Delay();
-          GPS_cordinates(&lat2 , &long2);
+         do
+         {
+          GPS_cordinates(&lat2 , &long2, &N_S2, &E_W2);
+         }
+         while(lat2 == 0 && long2 == 0);
 
-         // condition to make sure that lat2 and long2 have values
-          if (lat2 != 0 && long2 != 0)
-          {
-
-           distance_acc +=  distance(lat1, long1, lat2, long2);
-          }
+         
+           distance_acc +=  distance(lat1, N_S1, long1, E_W1, lat2, N_S2, long2, E_W2);
+         
           int distance_acc_int = distance_acc;  // to reduce rounding error
 
 
@@ -487,9 +492,14 @@ void delay_micro(int n){
             led(distance_acc);
 
             //push button
-            if  ((GPIO_PORTF_DATA_R & 0x1) == 0 ){
+            if  ((GPIO_PORTF_DATA_R & 0x1) == 0 )
+            {
             break2 = false ;
             }
+            
+            lat1 = lat2;
+            long1 = long2;
+     
 
        }
 
