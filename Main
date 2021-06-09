@@ -448,7 +448,7 @@ void delay_micro(int n){
 
            distance_acc +=  distance(lat1, long1, lat2, long2);
           }
-          distance_acc = round(distance_acc);
+          int distance_acc_int = distance_acc;  // to reduce rounding error
 
 
           LCD_Cmd(0x01);
@@ -456,15 +456,15 @@ void delay_micro(int n){
             delay_milli(500);
 
 
-            int x2= separating_h(distance_acc);
+            int x2= separating_h(distance_acc_int);
             LCD_Data(x2);
             delay_milli(1);
 
-            int x1 = separating_t(distance_acc);
+            int x1 = separating_t(distance_acc_int);
             LCD_Data(x1);
             delay_milli(1);
 
-            int x0=separating_u(distance_acc);
+            int x0=separating_u(distance_acc_int);
             LCD_Data(x0);
             delay_milli(1);
 
