@@ -13,7 +13,7 @@ void LCD_Data(unsigned char data);
     int main(){
     Init();
     LCD_init();
-
+    int final = 245;
 
     LCD_Cmd(0x01);
     LCD_Cmd(0x80);
@@ -36,13 +36,11 @@ void LCD_Data(unsigned char data);
     delay_milli(1);
     LCD_Data('=');
     delay_milli(1);
-    LCD_Data('2');
+    separating_h(final);
     delay_milli(1);
-    LCD_Data('4');
+    separating_t(final);
     delay_milli(1);
-    LCD_Data('5');
-    delay_milli(1);
-    LCD_Data(' ');
+    separating_u(final);
     delay_milli(1);
     LCD_Data(' ');
     delay_milli(500);
@@ -118,6 +116,7 @@ if(command <4) delay_milli(2); else delay_micro(37);
 
     }
     //**************************************************************************
+    // to separete number into digits
     int separating_u(int final){
        int num = final;
        int u;
@@ -138,7 +137,6 @@ if(command <4) delay_milli(2); else delay_micro(37);
     h=num/100;
     return (h+48);
 }
-
 //********************************************************
 // For Delay
 
