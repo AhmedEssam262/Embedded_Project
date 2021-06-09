@@ -461,19 +461,7 @@ void delay_micro(int n){
             LCD_Data(' ');
             delay_milli(1);
 
-            LCD_Data(' ');
-            delay_milli(1);
-
-            LCD_Data(' ');
-            delay_milli(1);
-
-            LCD_Data(' ');
-            delay_milli(1);
-
-            LCD_Data(' ');
-            delay_milli(1);
-            LCD_Data(' ');
-            delay_milli(1);
+           
             LCD_Data(' ');
             delay_milli(1);
             LCD_Data(' ');
