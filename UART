@@ -68,7 +68,9 @@ void sw2_init(){
 
        GPIO_PORTF_AFSEL_R = 0;
        GPIO_PORTF_PCTL_R = 0 ;
-}
+       
+       GPIO_PORTF_PUR_R |= 0x01;	
+	}
 
 
 
