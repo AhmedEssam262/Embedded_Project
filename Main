@@ -147,7 +147,7 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
     // getting the first char from gps
     while ((UART5_FR_R & 0x10) != 0)
     {}
-    frst_ch = UART5_DR_R;
+    frst_ch = (UART5_DR_R & 0xff);
 
     // check if it is the beging of nmea or not
     if(frst_ch == '$')
@@ -158,23 +158,23 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
 
         while ((UART5_FR_R & 0x10) != 0)
         {}
-        sec_ch = UART5_DR_R;
+        sec_ch = (UART5_DR_R & 0xff);
 
         while ((UART5_FR_R & 0x10) != 0)
         {}
-        thr_ch = UART5_DR_R;
+        thr_ch = (UART5_DR_R & 0xff);
 
         while ((UART5_FR_R & 0x10) != 0)
         {}
-        frth_ch = UART5_DR_R;
+        frth_ch = (UART5_DR_R & 0xff);
 
         while ((UART5_FR_R & 0x10) != 0)
         {}
-        ffth_ch = UART5_DR_R;
+        ffth_ch = (UART5_DR_R & 0xff);
 
         while ((UART5_FR_R & 0x10) != 0)
         {}
-        sx_ch = UART5_DR_R;
+        sx_ch = (UART5_DR_R & 0xff);
 
 
     // condition to check if we in the $GPGLL
@@ -194,7 +194,7 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
                 {
                     while ((UART5_FR_R & 0x10) != 0)
                     {}
-                    dumm_var = UART5_DR_R;
+                    dumm_var = (UART5_DR_R & 0xff);
 
 
                     if(comm == 1)       //getting latitude
