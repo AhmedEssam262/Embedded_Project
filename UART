@@ -24,6 +24,8 @@ void UART_Init(void)
         GPIO_PORTE_DEN_R |= 0x30;                                                           /* Make PE4 and PE5 as digital */
         GPIO_PORTE_AFSEL_R |= 0x30 ;                                                        /* Use PE4,PE5 alternate function */
 	GPIO_PORTE_PCTL_R =(GPIO_PORTE_PCTL_R & 0xFF00FFFF)+0x00110000 ;                    /* configure PE4 and PE5 for UART */
+	//GPIO_PORTE_PCTL_R =(GPIO_PORTE_PCTL_R & 0xFF00FFFF)+0x00110000 ;                    /* configure PE4 and PE5 for UART */
+
 	GPIO_PORTE_AMSEL_R &= ~0x30;                                                        /* no analog for PE4 , PE5 */  
 		
 } 
