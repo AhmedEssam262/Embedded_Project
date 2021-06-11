@@ -153,7 +153,11 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
     if(frst_ch == '$')
     {
         // check if the GPS is sending &GPGLL
-        char sec_ch = '0', thr_ch = '0', frth_ch = '0', ffth_ch = '0', sx_ch = '0';     // initialise with any value
+        char sec_ch = '0';
+	char thr_ch = '0';
+	char frth_ch = '0';
+	char ffth_ch = '0';
+	char sx_ch = '0';     // initialise with any value
 
 
         while ((UART5_FR_R & 0x10) != 0)
