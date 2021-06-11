@@ -348,13 +348,13 @@ double distance(double lat1,char check1, double long1 ,char check2,
     // Calculate the result
     ans = ans * R;
 
-    return ans;
+    return (ans*pow(10,3));
 }
 
 void led(uint32_t Distance)
 {
-    // Distance in KM
-    if (Distance > 0.1)
+    // Distance in Meters
+    if (Distance > 100)
         {
         GPIO_PORTF_DATA_R=0x04;       // Turn on LED BLUE when the Distance exceeds 100 meters
         }
