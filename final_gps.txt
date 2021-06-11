@@ -13,39 +13,43 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
     *long_do = 0.0;
     
      //variables we will need to store the latit. and long as a strings
-    char lat[18] = "0", longt[10] = "0";
-
+    char lat[20] = "0";
+    char longt[20] = "0";
     // getting the first char from gps
     while ((UART5_FR_R & 0x10) != 0)
     {}
-    frst_ch = UART5_DR_R;
+    frst_ch = (UART5_DR_R & 0xff);
 
     // check if it is the beging of nmea or not
     if(frst_ch == '$')
     {
         // check if the GPS is sending &GPGLL
-        char sec_ch = '0', thr_ch = '0', frth_ch = '0', ffth_ch = '0', sx_ch = '0';     // initialise with any value
+        char sec_ch = '0';
+	char thr_ch = '0';
+	char frth_ch = '0';
+	char ffth_ch = '0';
+	char sx_ch = '0';     // initialise with any value
 
 
         while ((UART5_FR_R & 0x10) != 0)
         {}
-        sec_ch = UART5_DR_R;
+        sec_ch = (UART5_DR_R & 0xff);
 
         while ((UART5_FR_R & 0x10) != 0)
         {}
-        thr_ch = UART5_DR_R;
+        thr_ch = (UART5_DR_R & 0xff);
 
         while ((UART5_FR_R & 0x10) != 0)
         {}
-        frth_ch = UART5_DR_R;
+        frth_ch = (UART5_DR_R & 0xff);
 
         while ((UART5_FR_R & 0x10) != 0)
         {}
-        ffth_ch = UART5_DR_R;
+        ffth_ch = (UART5_DR_R & 0xff);
 
         while ((UART5_FR_R & 0x10) != 0)
         {}
-        sx_ch = UART5_DR_R;
+        sx_ch = (UART5_DR_R & 0xff);
 
 
     // condition to check if we in the $GPGLL
@@ -65,7 +69,7 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
                 {
                     while ((UART5_FR_R & 0x10) != 0)
                     {}
-                    dumm_var = UART5_DR_R;
+                    dumm_var = (UART5_DR_R & 0xff);
 
 
                     if(comm == 1)       //getting latitude
@@ -80,7 +84,10 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
                     {
                         if(dumm_var != ',') //condition to prevent ',' because at the end of N/S ',' will enter the outer condition
                         {
-                           *N_S = dumm_var;
+			    if(dumm_var == 'N' || dumm_var == 'S')
+			    {
+                           	*N_S = dumm_var;
+			    }
                         }
                     }
                     
@@ -88,7 +95,10 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
                     {
                         if(dumm_var != ',' && dumm_var != '*' ) //condition to prevent ',' because at the end of latitude ',' will enter the outer condition
                         {
-                            *E_W = dumm_var;
+                            if(dumm_var == 'E' || dumm_var == 'W')
+			    {
+                           	*E_W = dumm_var;
+			    }
                         }
                     }
 
@@ -113,15 +123,6 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
 
         }
     }
-
-
-    // converting string to double and return the values to the inputs
-    *lat_do = atof(lat);
-    *long_do = atof(longt);
-
-
-    return 0;
-}
 
 
 	
