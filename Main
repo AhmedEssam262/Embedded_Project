@@ -142,8 +142,8 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
     *long_do = 0.0;
     
      //variables we will need to store the latit. and long as a strings
-    char lat[18] = "0", longt[10] = "0";
-
+    char lat[20] = "0";
+    char longt[20] = "0";
     // getting the first char from gps
     while ((UART5_FR_R & 0x10) != 0)
     {}
