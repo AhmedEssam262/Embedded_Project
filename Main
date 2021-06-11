@@ -209,7 +209,10 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
                     {
                         if(dumm_var != ',') //condition to prevent ',' because at the end of N/S ',' will enter the outer condition
                         {
-                           *N_S = dumm_var;
+			    if(dumm_var == 'N' || dumm_var == 'S')
+			    {
+                           	*N_S = dumm_var;
+			    }
                         }
                     }
                     
@@ -217,7 +220,10 @@ double GPS_cordinates(double *lat_do, double *long_do, char *N_S, char *E_W)
                     {
                         if(dumm_var != ',' && dumm_var != '*' ) //condition to prevent ',' because at the end of latitude ',' will enter the outer condition
                         {
-                            *E_W = dumm_var;
+                            if(dumm_var == 'E' || dumm_var == 'W')
+			    {
+                           	*E_W = dumm_var;
+			    }
                         }
                     }
 
