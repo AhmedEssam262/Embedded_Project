@@ -440,9 +440,12 @@ void delay_micro(int n){
       LCD_init();
 
       //loop to get start point
-      bool point1_xy = true, break2 = true ;
-      double lat1 = 0.0, long1 = 0.0;
-      char N_S1 = '0', E_W1 ='0';
+      bool point1_xy = true;
+      bool break2 = true ;
+      double lat1 = 0.0;
+      double long1 = 0.0;
+      char N_S1 = '0';
+      double E_W1 ='0';
 
       while (point1_xy == true)
       {
@@ -454,8 +457,11 @@ void delay_micro(int n){
       }
 
       //loop 2 , Tiva will be running till push button is pressed
-      double lat2 = 0.0, long2 = 0.0, distance_acc = 0.0;
-      char N_S2 = '0', E_W2 = '0';
+      double lat2 = 0.0;
+      double long2 = 0.0;
+      double distance_acc = 0.0;
+      char N_S2 = '0';
+      char E_W2 = '0';
       while (break2 == true)
       {
           Delay();
