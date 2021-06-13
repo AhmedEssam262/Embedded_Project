@@ -13,7 +13,6 @@ char check ;
 double longitude=0 ,latitude=0 ,minutes=0 ,seconds=0 ,result=0;
 char longitudeResult [10], latitudeResult[10];
 
-
 double longitudetoDecimal(double longitude ,char check){
 
      if (check == 'W'){
@@ -22,23 +21,18 @@ double longitudetoDecimal(double longitude ,char check){
      else {
         degrees=longitude/100;
      }
-     
+
      minutes=longitude-(double)(degrees*100);
      seconds=minutes/60.00;
      result=degrees+seconds;
-     sprintf(longitudeResult, "%f", result);
-     return ((double)atof(longitudeResult));
+     return (result);
 }
 
     // latitude
 
 double latitudetoDecimal(double latitude , char check){
 
-     double minutes=0 ,seconds=0 ,result=0;
-     char latitudeResult[10];
-
-    
-     if(check == "S"){
+     if(check == 'S'){
         degrees=latitude/-100;
      }
      else {
@@ -48,8 +42,7 @@ double latitudetoDecimal(double latitude , char check){
      minutes=latitude-(double)(degrees*100);
      seconds=minutes/60.00;
      result=degrees+seconds;
-     sprintf(latitudeResult, "%f", result);
-     return ((double)atof(latitudeResult));
+     return (result);
 
 }
 
