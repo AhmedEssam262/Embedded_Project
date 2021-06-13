@@ -42,7 +42,7 @@ void LCD_Data(unsigned char data);
     delay_milli(1);
     separating_u(final);
     delay_milli(1);
-    LCD_Data(' ');
+    LCD_Data('m');
     delay_milli(500);
     while(1){
     if( (GPIO_PORTF_DATA_R & 0x11) == 0x01 ){
